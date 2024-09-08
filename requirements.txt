@@ -1,0 +1,10 @@
+spacy
+pandas
+numpy
+scikit-learn
+scipy
+joblib
+streamlit
+
+
+
