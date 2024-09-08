@@ -12,9 +12,13 @@ import streamlit as st
 def custom_tokenizer(text):
     return re.split(r'[;,]', text) #Creates a tokenizer for the vectorizer
 
-vectorizer = load(r'C:\Files\ML Models\vectorizer.joblib') #Loads a trained CountVectorizer
-knn = load(r'C:\Files\ML Models\knn_recommender.joblib') #Loads a trained knn model
-df = pd.read_excel(r'C:\Files\KNN_book_data.xlsx') #Loads cleaned, vectorized and scaled book data
+vectorizer_url = 'https://github.com/YottaParasec/BookRecommender/raw/main/ML%20Models/vectorizer.joblib'
+knn_url = 'https://github.com/YottaParasec/BookRecommender/raw/main/ML%20Models/knn_recommender.joblib'
+data_url = 'https://github.com/YottaParasec/BookRecommender/raw/main/KNN_book_data.xlsx'
+
+vectorizer = load(vectorizer_url)  # Loads a trained CountVectorizer
+knn = load(knn_url)  # Loads a trained KNN model
+df = pd.read_excel(data_url)  # Loads cleaned, vectorized, and scaled book data
 nlp = spacy.load('en_core_web_sm') #loads a pre-trained NLP model
 
 vocabulary = set(vectorizer.vocabulary_.keys()) #Sets a variable containing a list of genres
@@ -85,8 +89,9 @@ st.subheader('*Find book recommendations based on your favorite genres.*')
 with st.sidebar:
     st.header('🛠️ Filters')
 
-    user_input_ = st.text_input(
+    user_input_ = st.multiselect(
         'Enter Genres:',
+        options=vocabulary,
         help="You can type in multiple genres.",
         placeholder="Example: fantasy, science fiction..."  # Custom placeholder text
     )
@@ -103,6 +108,8 @@ with st.sidebar:
         recommendation_type_value = 0.5
 
     button = st.button('Get Recommendations')
+
+user_input_= ', '.join(user_input_)
 
 
 st.write('')
@@ -135,4 +142,6 @@ else:
 
 # Footer
 st.markdown("*🔎 Powered by a KNN machine learning algorithm.*")
+
+
 
