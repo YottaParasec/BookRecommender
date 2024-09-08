@@ -12,10 +12,9 @@ import streamlit as st
 def custom_tokenizer(text):
     return re.split(r'[;,]', text) #Creates a tokenizer for the vectorizer
 
-
+data_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/KNN_book_data.csv'
 vectorizer_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/vectorizer.joblib'
 knn_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/knn_recommender.joblib'
-data_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/KNN_book_data.csv'
 
 vectorizer = load(vectorizer_url)  # Loads a trained CountVectorizer
 knn = load(knn_url)  # Loads a trained KNN model
