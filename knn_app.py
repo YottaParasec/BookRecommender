@@ -13,7 +13,7 @@ def custom_tokenizer(text):
     return re.split(r'[;,]', text) #Creates a tokenizer for the vectorizer
 
 
-vectorizer_url = 'https://github.com/YottaParasec/BookRecommender/raw/main/ML%20Models/vectorizer.joblib'
+vectorizer_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/vectorizer.joblib'
 knn_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/knn_recommender.joblib'
 data_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/KNN_book_data.csv'
 
