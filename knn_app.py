@@ -44,9 +44,9 @@ df = pd.read_csv('KNN_book_data.csv')  # Loads cleaned, vectorized, and scaled b
 
 # Ensure the SpaCy model is available
 model_name = 'en_core_web_sm'
-model_path = os.path.join(spacy.util.get_package_path(), model_name)
+model_dir = spacy.util.get_package_path(model_name) if spacy.util.get_package_path else None
 
-if not os.path.exists(model_path):
+if not model_dir:
     print(f"{model_name} not found. Downloading...")
     subprocess.run(["python", "-m", "spacy", "download", model_name], check=True)
 
