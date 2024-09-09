@@ -42,7 +42,6 @@ vectorizer = load('vectorizer.joblib')  # Loads a trained CountVectorizer
 knn = load('knn_recommender.joblib')  # Loads a trained KNN model
 df = pd.read_csv('KNN_book_data.csv')  # Loads cleaned, vectorized, and scaled book data
 
-# Ensure the SpaCy model is available
 model_name = 'en_core_web_sm'
 model_dir = spacy.util.get_package_path(model_name) if spacy.util.get_package_path else None
 
@@ -109,7 +108,7 @@ def recommender(user_input_, neighbors=10, recommendation_type_value=1):
     
     return recommended_books[['Title', 'Rating', 'Rating Count', 'Genre']]  # Return the recommended books with their title, rating, rating count, and genre
 
-# Streamlit app UI
+
 
 # Set title of the app
 st.title('📚 Book Recommender System')
@@ -147,7 +146,7 @@ with st.sidebar:
 st.write('')
 st.write('')
 
-# If input and slider values are valid, display results
+# If button clicked, display results
 if button:
     st.success("Your Book Recommendations:")
     with st.spinner('Finding the best books for you...'):
