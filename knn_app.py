@@ -41,7 +41,12 @@ vectorizer = load('vectorizer.joblib')  # Loads a trained CountVectorizer
 knn = load('knn_recommender.joblib')  # Loads a trained KNN model
 df = pd.read_csv('KNN_book_data.csv')  # Loads cleaned, vectorized, and scaled book data
 
-nlp = spacy.load('en_core_web_sm') #loads a pre-trained NLP model
+try:
+    nlp = spacy.load('en_core_web_sm')
+except OSError:
+    # If the model is not available, download it
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load('en_core_web_sm')  # Load again after download
 
 vocabulary = set(vectorizer.vocabulary_.keys()) #Sets a variable containing a list of genres
 
