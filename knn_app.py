@@ -8,17 +8,39 @@ from sklearn.neighbors import NearestNeighbors
 import scipy.sparse as sp
 from joblib import load
 import streamlit as st
+import requests
+import os
 
 def custom_tokenizer(text):
     return re.split(r'[;,]', text) #Creates a tokenizer for the vectorizer
 
+# Helper function to download files from GitHub
+def download_file(url, local_filename):
+    response = requests.get(url)
+    response.raise_for_status()  # Check for request errors
+    with open(local_filename, 'wb') as f:
+        f.write(response.content)
+
+# URLs for the joblib and CSV files
 data_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/KNN_book_data.csv'
 vectorizer_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/vectorizer.joblib'
 knn_url = 'https://raw.githubusercontent.com/YottaParasec/BookRecommender/main/knn_recommender.joblib'
 
-vectorizer = load(vectorizer_url)  # Loads a trained CountVectorizer
-knn = load(knn_url)  # Loads a trained KNN model
-df = pd.read_csv(data_url)  # Loads cleaned, vectorized, and scaled book data
+# Download files if they don't exist
+if not os.path.exists('vectorizer.joblib'):
+    download_file(vectorizer_url, 'vectorizer.joblib')
+
+if not os.path.exists('knn_recommender.joblib'):
+    download_file(knn_url, 'knn_recommender.joblib')
+
+if not os.path.exists('KNN_book_data.csv'):
+    download_file(data_url, 'KNN_book_data.csv')
+
+# Load the files after downloading
+vectorizer = load('vectorizer.joblib')  # Loads a trained CountVectorizer
+knn = load('knn_recommender.joblib')  # Loads a trained KNN model
+df = pd.read_csv('KNN_book_data.csv')  # Loads cleaned, vectorized, and scaled book data
+
 nlp = spacy.load('en_core_web_sm') #loads a pre-trained NLP model
 
 vocabulary = set(vectorizer.vocabulary_.keys()) #Sets a variable containing a list of genres
