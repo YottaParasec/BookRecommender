@@ -121,9 +121,8 @@ st.subheader('*Find book recommendations based on your favorite genres.*')
 with st.sidebar:
     st.header('🛠️ Filters')
 
-    user_input_ = st.multiselect(
+    user_input_ = st.text_input(
         'Enter Genres:',
-        options=vocabulary,
         help="You can type in multiple genres.",
         placeholder="Example: fantasy, science fiction..."  # Custom placeholder text
     )
@@ -141,7 +140,7 @@ with st.sidebar:
 
     button = st.button('Get Recommendations')
 
-user_input_= ', '.join(user_input_)
+#user_input_= ', '.join(user_input_)
 
 
 st.write('')
