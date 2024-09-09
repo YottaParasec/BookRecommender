@@ -147,7 +147,7 @@ st.write('')
 st.write('')
 
 # If input and slider values are valid, display results
-if button:
+if button or recommendation_type:
     st.success("Your Book Recommendations:")
     with st.spinner('Finding the best books for you...'):
         results = recommender(user_input_, neighbors, recommendation_type_value)  # Call recommender function
