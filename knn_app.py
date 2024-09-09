@@ -137,8 +137,9 @@ with st.sidebar:
         recommendation_type_value = 1
     elif recommendation_type == "Most Relevant":
         recommendation_type_value = 0.5
-
-    button = st.button('Get Recommendations')
+        
+    st.write('')
+    button = st.button('Find Books')
 
 #user_input_= ', '.join(user_input_)
 
