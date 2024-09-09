@@ -10,6 +10,7 @@ from joblib import load
 import streamlit as st
 import requests
 import os
+import subprocess
 
 def custom_tokenizer(text):
     return re.split(r'[;,]', text) #Creates a tokenizer for the vectorizer
